@@ -413,7 +413,7 @@ Ganti file `data.json` di root folder. Pastikan kolom berikut tersedia:
 |---|---|
 | Muhammad Ad'hiya Hartono | Project Leader |
 | William Yonathan | Cloud Engineer & Data Analyst |
-| Milda Khaerunnisa | QA & Integration Engineer |
+| Milda Khaerunnisa | QA & Documentation |
 | Alfin Agustiar Pratama | Frontend & UI/UX Developer |
 | Achmad Raka Yuniar | Backend Developer |
 
