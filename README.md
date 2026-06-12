@@ -43,12 +43,17 @@ Platform manajemen reservasi restoran berbasis AI yang dibangun dengan **Streaml
 
 ---
 
-### 8. AI Reservation Assistant – Tampilan Chat (Kosong)
+### 8. Ketersediaan Meja
+![Ketersediaan Meja](screenshots/10_ketersediaan_meja.png)
+
+---
+
+### 9. AI Reservation Assistant – Tampilan Chat (Kosong)
 ![Tampilan Chat Awal](screenshots/08_sara_chat_kosong.png)
 
 ---
 
-### 9. AI Reservation Assistant – Percakapan Aktif
+### 10. AI Reservation Assistant – Percakapan Aktif
 ![Percakapan 2 Arah](screenshots/09_sara_chat_aktif.png)
 
 ---
