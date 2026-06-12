@@ -2,7 +2,7 @@
 
 > **Capstone Project · CAMP Batch 4 · Kelompok 3 – Hana Jatmiana · 2026**
 
-Platform manajemen reservasi restoran berbasis AI yang dibangun dengan **Streamlit** dan didukung oleh **Google Gemini 2.5 Flash**. Aplikasi ini menyediakan dua mode akses terpisah — **portal pelanggan** untuk reservasi via chatbot, dan **portal admin** dengan dashboard analitik bisnis secara penuh.
+Platform manajemen reservasi restoran berbasis AI yang dibangun dengan **Streamlit** dan didukung oleh **Google Gemini 2.5 Flash**. Aplikasi ini menyediakan dua mode akses terpisah — portal pelanggan untuk reservasi via chatbot, dan portal admin dengan dashboard analitik bisnis secara penuh.
 
 ---
 
@@ -43,17 +43,12 @@ Platform manajemen reservasi restoran berbasis AI yang dibangun dengan **Streaml
 
 ---
 
-### 8. Ketersediaan Meja
-![Ketersediaan Meja](screenshots/10_ketersediaan_meja.png)
-
----
-
-### 9. AI Reservation Assistant – Tampilan Chat (Kosong)
+### 8. AI Reservation Assistant – Tampilan Chat (Kosong)
 ![Tampilan Chat Awal](screenshots/08_sara_chat_kosong.png)
 
 ---
 
-### 10. AI Reservation Assistant – Percakapan Aktif
+### 9. AI Reservation Assistant – Percakapan Aktif
 ![Percakapan 2 Arah](screenshots/09_sara_chat_aktif.png)
 
 ---
@@ -63,19 +58,19 @@ Platform manajemen reservasi restoran berbasis AI yang dibangun dengan **Streaml
 ```
 restaurant_dashboard/
 ├── Beranda.py                      # Entry point – landing page & login admin
-├── utils.py                        # Data loader, helper format, save_data, get_table_availability
-├── data.json                       # Dataset sintetis 3.000 reservasi
+├── utils.py                        # Data loader, shared CSS, konstanta warna
+├── data.json                       # Dataset sintetis 500 reservasi
 ├── Sara_logo.png                   # Logo SARA untuk tampilan chat header
 ├── requirements.txt                # Dependensi Python
 ├── README.md                       # Dokumentasi ini
 ├── .env                            # API key (tidak di-commit ke Git)
 ├── .gitignore
 ├── .streamlit/
-│   └── config.toml                 # Tema, warna primary, sidebar, server config
+│   └── config.toml                 # Tema, warna primary, server config
 └── pages/
-    ├── 1_Dashboard_Analytics.py    # Dashboard KPI & visualisasi Plotly (admin only)
-    ├── 2_Reservation_Management.py # Manajemen, update status & detail reservasi (admin only)
-    └── 3_AI_Assistant.py           # Chatbot SARA berbasis Gemini API (publik)
+    ├── 1_Dashboard_Analytics.py    # Dashboard KPI & visualisasi Plotly
+    ├── 2_Reservation_Management.py # Manajemen & detail reservasi
+    └── 3_AI_Assistant.py           # Chatbot SARA berbasis Gemini API
 ```
 
 ---
@@ -141,7 +136,7 @@ Aplikasi menggunakan sistem role-based access yang disimpan di `st.session_state
 
 **Setelah login berhasil:**
 - Tombol berubah menjadi **🚪 Logout**
-- Hero badge berubah dari hijau **"Mode Pelanggan"** menjadi gold **"Mode Admin Aktif"**
+- Hero badge berubah dari hijau "Mode Pelanggan" menjadi gold "Mode Admin Aktif"
 - Tiga nav card muncul sekaligus: Dashboard Analytics, Manajemen Reservasi, AI Assistant
 - Seluruh halaman admin dapat diakses
 
@@ -151,107 +146,88 @@ Aplikasi menggunakan sistem role-based access yang disimpan di `st.session_state
 
 ## 📊 Fitur Dashboard Analytics
 
-Halaman ini **hanya dapat diakses oleh admin**. Seluruh chart menggunakan **Plotly** dengan styling konsisten (background putih, aksen gold). Jika diakses tanpa login, ditampilkan halaman *Akses Terlarang*.
+Halaman ini hanya dapat diakses oleh admin. Seluruh chart menggunakan **Plotly** dengan styling yang konsisten (background putih, aksen gold).
 
 ### Filter Global
-- **Filter Area Meja** – multiselect untuk menyaring seluruh visualisasi berdasarkan area
+- **Filter Area Meja** – multiselect untuk menyaring seluruh visualisasi berdasarkan area (Indoor, Outdoor, Private, VIP)
 
 ### Overview KPI
-
 | KPI | Deskripsi |
 |---|---|
 | Total Reservasi | Jumlah seluruh reservasi di dataset |
-| Total Revenue | Total estimasi pendapatan dalam IDR |
+| Total Revenue | Estimasi total pendapatan dalam IDR |
 | Average Rating | Rata-rata rating pelanggan (skala 1–5) |
-| Total Pelanggan Unik | Jumlah Customer ID yang berbeda |
+| Total Pelanggan Unik | Jumlah customer ID yang berbeda |
 | Completed | Jumlah reservasi berstatus Completed |
 | Breakdown Status | Pill badge Confirmed / Pending / Cancelled / No-show |
 
 ### Reservation Analytics
 - 📊 Tren Reservasi Bulanan (bar chart)
 - 🥧 Distribusi Status Reservasi (pie chart)
-- 📊 Distribusi Channel Booking (horizontal bar: Walk-in, Website, WhatsApp, Telepon, Instagram DM, Aplikasi Mobile)
+- 📊 Distribusi Channel Booking (horizontal bar: Walk-in, Online, Phone, App)
 - 🥧 Distribusi Area Meja (donut chart)
-- 📊 Distribusi Occasion (bar chart)
+- 📊 Distribusi Occasion (bar chart: Anniversary, Birthday, Business, dll.)
 
 ### Revenue Analytics
 - 💰 Revenue per Channel Booking (horizontal bar)
 - 💰 Revenue per Area Meja (bar)
-- 💰 Revenue per Occasion (pie)
+- 💰 Revenue per Occasion (bar)
 - 📈 Tren Revenue Bulanan (line/bar)
 
 ### Customer Analytics
-- 👥 Distribusi Jumlah Orang (party size)
+- 👥 Distribusi Party Size
 - ⭐ Distribusi Rating
-- 💳 Distribusi Metode Pembayaran (Cash, QRIS, GoPay, OVO, Dana, ShopeePay, Kartu Kredit, Transfer Bank)
+- 💳 Distribusi Metode Pembayaran
 
 ---
 
 ## 📋 Fitur Manajemen Reservasi
 
-Halaman ini **hanya dapat diakses oleh admin**.
+Halaman ini hanya dapat diakses oleh admin.
 
 ### Filter & Pencarian
 - 🔎 Cari berdasarkan nama pelanggan, Reservation ID, atau Customer ID
 - Filter Status: Confirmed, Completed, Pending, Cancelled, No-show
-- Filter Area Meja (Indoor, Outdoor, Garden, Bar Area, VIP Room, Private Room)
+- Filter Area Meja
 - Filter Channel Booking
 
 ### Tabel Data
 - Menampilkan semua reservasi yang cocok dengan filter
-- Pagination satu baris dengan navigasi halaman, tombol angka cepat, dan input lompat langsung ke halaman tertentu
-- Tombol **⬇️ Download CSV** untuk mengekspor hasil filter ke file `reservasi_export.csv`
+- Klik baris untuk membuka **Detail Reservasi**
 
 ### Detail Reservasi
 Panel detail yang muncul saat baris diklik, menampilkan:
-- Nama lengkap pelanggan + No. HP + Email
+- Nama lengkap pelanggan + nomor HP + email
 - Reservation ID & Customer ID
 - Area Meja, Tipe Meja, dan Nomor Meja
-- Tanggal, Waktu Reservasi, dan Durasi (menit)
-- Jumlah Orang, Occasion, dan Special Request
-- Status Reservasi + Metode Pembayaran + Channel Booking
-- Estimasi Budget/Orang & Total Estimasi (IDR)
-- Rating & Catatan Staff
+- Tanggal & waktu reservasi
+- Jumlah tamu (party size) & occasion
+- Status reservasi + metode pembayaran
+- Estimasi revenue (IDR)
+- Rating & catatan khusus
 
-### Update Status Reservasi
-Panel terpisah di bawah tabel untuk mengubah status reservasi secara langsung:
-- Pilih Reservation ID (dari seluruh data atau hasil filter aktif)
-- Pilih status baru (hanya transisi yang valid ditampilkan; status final seperti *Completed/Cancelled* dikunci)
-- Tambahkan catatan opsional untuk staff
-- **Conflict detection**: sistem otomatis memeriksa konflik meja apabila status diubah ke *Confirmed* (via `get_table_availability`)
-- Perubahan langsung disimpan ke `data.json` melalui fungsi `save_data()`
-
-### 🪑 Ketersediaan Meja *(dengan pemilih tanggal)*
-Peta ketersediaan seluruh 41 meja restoran (6 area) dengan navigasi kalender:
-- **Kalender interaktif** — pilih tanggal bebas untuk melihat ketersediaan, tidak terbatas hari ini
-- Tombol aksi cepat **Hari Ini** dan **Besok** untuk navigasi cepat
-- Setiap meja ditampilkan sebagai chip berwarna: 🟢 hijau = tersedia, 🔴 merah = terpakai
-- Chip meja terpakai menampilkan waktu reservasi dan nama pelanggan (ringkas)
-- **Summary bar** menunjukkan total meja terpakai, tersedia, dan persentase ketersediaan pada tanggal terpilih
-- Badge ringkasan per area (misal: "3 bebas · 2 terpakai" atau "✓ Semua bebas" atau "✗ Penuh")
-- Status **Pending** dan **Confirmed** dihitung sebagai meja terpakai
+### Export Data
+- Tombol **⬇️ Download CSV** untuk mengekspor hasil filter ke file `reservasi_export.csv`
 
 ---
 
 ## 🤖 AI Reservation Assistant (SARA)
 
-**SARA** (Smart Automation Reservation Assistant) adalah chatbot berbasis **Google Gemini 2.5 Flash** via REST API. Halaman ini dapat diakses oleh semua pengguna (pelanggan maupun admin).
+**SARA** (Smart Reservation Assistant for Restaurant) adalah chatbot yang ditenagai oleh **Google Gemini 2.5 Flash** via REST API.
 
 ### Fitur Utama
-- **Reservasi baru** – membantu pelanggan membuat reservasi dengan mengumpulkan: nama, jumlah orang, tanggal, waktu, area, occasion, dan special request
-- **Cek status reservasi** – mencari reservasi berdasarkan nama atau Reservation ID / Customer ID
+- **Reservasi baru** – membantu pelanggan membuat reservasi dengan mengumpulkan data: nama, jumlah tamu, tanggal, waktu, area, dan occasion
+- **Cek status reservasi** – pelanggan bisa menanyakan status reservasi berdasarkan nama atau ID
 - **Informasi restoran** – menjawab pertanyaan umum tentang jam buka, menu, fasilitas, lokasi, dsb.
-- **Fallback heuristik** – jika API Gemini tidak tersedia, SARA tetap merespons dengan logika berbasis intent
+- **Fallback heuristik** – jika API tidak tersedia, SARA tetap bisa merespons dengan logika berbasis rule
 
-### Tools Python (dipanggil dari dalam kode)
-
+### Tools Agentic
 | Tool | Fungsi |
 |---|---|
-| `cek_reservasi_tool(query)` | Mencari reservasi di `data.json` berdasarkan nama, Reservation ID, atau Customer ID |
-| `buat_reservasi_tool(...)` | Membuat entri reservasi baru (nama, pax, tanggal, waktu, area, occasion, special_request) |
-| `detect_intent(msg)` | Mendeteksi intent: `buat_reservasi`, `cek_reservasi`, `info_restoran`, `greeting` |
-| `extract_params(msg)` | Mengekstrak parameter reservasi dari teks natural language |
-| `heuristic_response(msg)` | Fallback berbasis rule jika Gemini API tidak tersedia |
+| `cek_reservasi_tool(query)` | Mencari reservasi berdasarkan nama/ID di `data.json` |
+| `buat_reservasi_tool(...)` | Membuat entri reservasi baru (nama, pax, tanggal, waktu, area, occasion) |
+| `detect_intent(msg)` | Mendeteksi intent pesan: reservasi, cek status, info, atau umum |
+| `extract_params(msg)` | Mengekstrak parameter dari pesan natural language |
 
 ### Quick Action Buttons
 Tombol shortcut di atas chat window:
@@ -260,53 +236,12 @@ Tombol shortcut di atas chat window:
 - 🍽️ Info Restoran
 - 📞 Hubungi Kami
 
-### Info Restoran Mandala Rasa (built-in ke system prompt)
-
-| Info | Detail |
-|---|---|
-| Jam Operasional | Senin–Minggu 10:00–22:00 WIB |
-| Area | Indoor (80 pax), Outdoor (60), Garden (80), Bar Area (40), VIP Room (60), Private Room (120) |
-| Fasilitas | WiFi gratis, parkir luas, smoking area, live music Jum–Sab 19:00, aksesibel kursi roda |
-| Kebijakan | Reservasi min 2 jam sebelumnya, batal gratis H-1, deposit 50% untuk VIP/Private |
-| Menu Andalan | Sate Maranggi Spesial, Nasi Goreng Wagyu, Premium Grill Platter, Signature Mocktail |
-
 ### Konfigurasi Model
 ```
-Model    : gemini-2.5-flash
-Endpoint : generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent
-API Key  : dari environment variable GOOGLE_API_KEY
+Model   : gemini-2.5-flash
+Endpoint: generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent
+API Key : dari env variable GOOGLE_API_KEY
 ```
-
----
-
-## 🗃️ Dataset
-
-File `data.json` berisi **3.000 entri reservasi sintetis** dengan kolom lengkap:
-
-| Kolom | Tipe | Keterangan |
-|---|---|---|
-| `Reservation ID` | String | ID unik reservasi (RSV00001 dst.) |
-| `Customer ID` | String | ID unik pelanggan (CUST####) |
-| `Nama Customer` | String | Nama lengkap pelanggan |
-| `No. HP` | Number | Nomor handphone |
-| `Email` | String | Email pelanggan |
-| `Tanggal` / `Tanggal Reservasi` | Date | Tanggal reservasi (YYYY-MM-DD) |
-| `Waktu Reservasi` | String | Waktu reservasi (HH:MM) |
-| `Durasi (menit)` | Integer | Durasi booking meja |
-| `Jumlah Orang` | Integer | Jumlah tamu (party size) |
-| `Area Meja` | Categorical | Indoor / Outdoor / Garden / Bar Area / VIP Room / Private Room |
-| `Tipe Meja` | String | Kapasitas meja (misal "Meja 6 Orang") |
-| `Nomor Meja` | Integer | Nomor meja fisik |
-| `Occasion` | Categorical | Anniversary / Birthday / Business Meeting / Casual Dining / dll. |
-| `Special Request` | String / null | Permintaan khusus pelanggan |
-| `Estimasi Budget/Orang (IDR)` | Number | Estimasi pengeluaran per orang |
-| `Total Estimasi (IDR)` | Number | Total estimasi pendapatan |
-| `Metode Pembayaran` | Categorical | Cash / QRIS / GoPay / OVO / Dana / ShopeePay / Kartu Kredit / Transfer Bank |
-| `Channel Booking` | Categorical | Walk-in / Website / WhatsApp / Telepon / Instagram DM / Aplikasi Mobile |
-| `Status Reservasi` | Categorical | Confirmed / Completed / Pending / Cancelled / No-show |
-| `Rating` | Float / null | Rating kepuasan (1–5), null jika belum selesai |
-| `Catatan Staff` | String / null | Catatan internal dari staff |
-| `Bulan` | Integer | Bulan reservasi (1–12) |
 
 ---
 
@@ -322,22 +257,12 @@ File `data.json` berisi **3.000 entri reservasi sintetis** dengan kolom lengkap:
 | Light Cream | `#f7f3ee` | Background halaman utama |
 | White | `#ffffff` | Card background, chat window |
 
-### Status Colors
-
-| Status | Warna |
-|---|---|
-| Confirmed | `#2ecc71` (hijau) |
-| Completed | `#3498db` (biru) |
-| Pending | `#f39c12` (oranye) |
-| Cancelled | `#e74c3c` (merah) |
-| No-show | `#9b59b6` (ungu) |
-
 ### Tipografi
 - **Playfair Display** (serif) – heading, judul section, nilai KPI
 - **DM Sans** (sans-serif) – body text, label, badge
 
 ### Komponen CSS Kustom
-- `.kpi-card` – card KPI dengan border kiri berwarna aksen dan shadow
+- `.kpi-card` – card KPI dengan border kiri berwarna aksen
 - `.section-title` – judul section dengan garis dekoratif gold
 - `.nav-card` – card navigasi dengan hover effect (lift + border gold)
 - `.hero-wrap` – hero banner dengan gradient gelap dan radial gold overlay
@@ -346,25 +271,15 @@ File `data.json` berisi **3.000 entri reservasi sintetis** dengan kolom lengkap:
 - `.chat-header` – header banner chatbot SARA
 - `.filter-card` – card filter di halaman manajemen reservasi
 - `.detail-card` – card detail reservasi
-- `.update-panel` – panel update status reservasi
-- `.pagination-wrap` – kontainer navigasi halaman tabel
 
 ### Tema Streamlit (`.streamlit/config.toml`)
 ```toml
 [theme]
-base                     = "light"
-primaryColor             = "#d4af37"
-backgroundColor          = "#f7f3ee"
+base             = "light"
+primaryColor     = "#d4af37"
+backgroundColor  = "#f7f3ee"
 secondaryBackgroundColor = "#ffffff"
-textColor                = "#0f1923"
-font                     = "sans serif"
-
-[server]
-headless   = true
-enableCORS = false
-
-[client]
-showSidebarNavigation = false
+textColor        = "#0f1923"
 ```
 
 ---
@@ -374,11 +289,11 @@ showSidebarNavigation = false
 | Layer | Stack |
 |---|---|
 | Framework | Streamlit ≥ 1.32.0 |
-| Visualisasi | Plotly Express & Graph Objects ≥ 5.18.0 |
-| Data Processing | Pandas ≥ 2.0.0, JSON built-in |
-| AI / LLM | Google Generative AI ≥ 0.5.0 (Gemini 2.5 Flash via REST API) |
-| Environment | python-dotenv ≥ 1.0.0 |
-| Export | openpyxl ≥ 3.1.0 (support CSV download) |
+| Visualisasi | Plotly Express & Graph Objects |
+| Data Processing | Pandas ≥ 2.0.0, JSON |
+| AI / LLM | Google Gemini 2.5 Flash (via REST API) |
+| Environment | python-dotenv |
+| Export | openpyxl (support CSV download) |
 | Deployment | Streamlit Community Cloud / Local |
 
 ---
@@ -397,7 +312,7 @@ ADMIN_PASSWORD = os.getenv("ADMIN_PASSWORD", "admin123")
 
 ### Mengganti Dataset
 Ganti file `data.json` di root folder. Pastikan kolom berikut tersedia:
-`Reservation ID`, `Customer ID`, `Nama Customer`, `No. HP`, `Email`, `Tanggal`, `Waktu Reservasi`, `Durasi (menit)`, `Jumlah Orang`, `Area Meja`, `Tipe Meja`, `Nomor Meja`, `Occasion`, `Special Request`, `Estimasi Budget/Orang (IDR)`, `Total Estimasi (IDR)`, `Metode Pembayaran`, `Channel Booking`, `Status Reservasi`, `Rating`, `Catatan Staff`
+`Tanggal`, `Nama Customer`, `Customer ID`, `Reservation ID`, `No. HP`, `Email`, `Area Meja`, `Tipe Meja`, `Nomor Meja`, `Party Size`, `Occasion`, `Status`, `Channel`, `Metode Pembayaran`, `Total Estimasi (IDR)`, `Rating`
 
 ### Deploy ke Streamlit Cloud
 1. Push project ke GitHub (pastikan `.env` masuk `.gitignore`)
@@ -411,11 +326,12 @@ Ganti file `data.json` di root folder. Pastikan kolom berikut tersedia:
 
 | Anggota | Peran |
 |---|---|
-| Muhammad Ad'hiya Hartono | Project Leader |
-| William Yonathan | Cloud Engineer & Data Analyst |
-| Milda Khaerunnisa | QA & Documentation |
-| Alfin Agustiar Pratama | Frontend & UI/UX Developer |
-| Achmad Raka Yuniar | Backend Developer |
+| Achmad Raka Yuniar | Project Leader & Backend Developer |
+| William Yonathan | AI Engineer |
+| Milda Khaerunnisa | Data & Analytics Developer |
+| Muhammad Ad'hiya Hartono | Frontend & UI/UX Developer |
+| Alfin Agustiar Pratama | QA & Integration Engineer |
+| Arya | Data Scientist & Deployment |
 
 > Dibimbing oleh **Hana Jatmiana** – Mentor Kelompok 3, CAMP Batch 4
 
