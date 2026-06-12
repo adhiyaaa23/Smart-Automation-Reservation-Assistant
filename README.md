@@ -414,9 +414,9 @@ Ganti file `data.json` di root folder. Pastikan kolom berikut tersedia:
 | Achmad Raka Yuniar | Project Leader & Backend Developer |
 | William Yonathan | AI Engineer |
 | Milda Khaerunnisa | Data & Analytics Developer |
-| Muhammad Ad'hiya Hartono | Frontend & UI/UX Developer |
+| Alfin Agustiar Pratama | Frontend & UI/UX Developer |
 | Alfin Agustiar Pratama | QA & Integration Engineer |
-| Arya | Data Scientist & Deployment |
+| Muhammad Ad'hiya Hartono | Data Scientist & Deployment |
 
 > Dibimbing oleh **Hana Jatmiana** – Mentor Kelompok 3, CAMP Batch 4
 
