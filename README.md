@@ -411,12 +411,11 @@ Ganti file `data.json` di root folder. Pastikan kolom berikut tersedia:
 
 | Anggota | Peran |
 |---|---|
-| Achmad Raka Yuniar | Project Leader & Backend Developer |
-| William Yonathan | AI Engineer |
-| Milda Khaerunnisa | Data & Analytics Developer |
+| Muhammad Ad'hiya Hartono | Project Leader |
+| William Yonathan | Cloud Engineer & Data Analyst |
+| Milda Khaerunnisa | QA & Integration Engineer |
 | Alfin Agustiar Pratama | Frontend & UI/UX Developer |
-| Alfin Agustiar Pratama | QA & Integration Engineer |
-| Muhammad Ad'hiya Hartono | Data Scientist & Deployment |
+| Achmad Raka Yuniar | Backend Developer |
 
 > Dibimbing oleh **Hana Jatmiana** – Mentor Kelompok 3, CAMP Batch 4
 
