@@ -59,7 +59,7 @@ Platform manajemen reservasi restoran berbasis AI yang dibangun dengan **Streaml
 restaurant_dashboard/
 ├── Beranda.py                      # Entry point – landing page & login admin
 ├── utils.py                        # Data loader, shared CSS, konstanta warna
-├── data.json                       # Dataset sintetis 500 reservasi
+├── data.json                       # Dataset sintetis 3000 reservasi
 ├── Sara_logo.png                   # Logo SARA untuk tampilan chat header
 ├── requirements.txt                # Dependensi Python
 ├── README.md                       # Dokumentasi ini
